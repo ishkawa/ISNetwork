@@ -2,14 +2,6 @@
 
 @implementation ISJSONNetworkOperation
 
-+ (id)operationWithRequest:(NSURLRequest *)request
-{
-    ISJSONNetworkOperation *operation = [[[ISJSONNetworkOperation alloc] init] autorelease];
-    operation.request = request;
-    
-    return operation;
-}
-
 - (id)processData:(NSData *)data
 {
     NSError *error = nil;

@@ -22,7 +22,7 @@ static NSOperationQueue *_sharedOperationQueue;
 
 + (id)operationWithRequest:(NSURLRequest *)request
 {
-    ISNetworkOperation *operation = [[[ISNetworkOperation alloc] init] autorelease];
+    ISNetworkOperation *operation = [[[[self class] alloc] init] autorelease];
     operation.request = request;
     
     return operation;
@@ -77,7 +77,7 @@ static NSOperationQueue *_sharedOperationQueue;
 - (void)enqueueWithHandler:(void (^)(NSURLResponse *, id, NSError *))handler
 {
     self.handler = handler;
-    [[ISNetworkOperation sharedOperationQueue] addOperation:self];
+    [[[self class] sharedOperationQueue] addOperation:self];
 }
 
 - (void)start
