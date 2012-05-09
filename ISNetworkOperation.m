@@ -84,6 +84,7 @@ static NSOperationQueue *_sharedOperationQueue;
 {
     [self setValue:[NSNumber numberWithBool:YES] forKey:@"isExecuting"];
     self.connection = [NSURLConnection connectionWithRequest:self.request delegate:self];
+    [self.connection scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
     do {
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
     } while ([self isExecuting]);
@@ -117,8 +118,9 @@ static NSOperationQueue *_sharedOperationQueue;
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
+    id object = [self processData:self.data];
     NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
-        self.handler(self.response, [self processData:self.data], nil);
+        self.handler(self.response, object, nil);
     }];
     [[NSOperationQueue mainQueue] addOperation:operation];
     [self setValue:[NSNumber numberWithBool:NO] forKey:@"isExecuting"];
