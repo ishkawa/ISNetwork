@@ -82,6 +82,7 @@ static NSOperationQueue *_sharedOperationQueue;
 
 - (void)start
 {
+    [self manageStatusBarIndicatorView];
     [self setValue:[NSNumber numberWithBool:YES] forKey:@"isExecuting"];
     self.connection = [NSURLConnection connectionWithRequest:self.request delegate:self];
     [self.connection scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
@@ -103,6 +104,20 @@ static NSOperationQueue *_sharedOperationQueue;
     [super cancel];
 }
 
+- (void)manageStatusBarIndicatorView
+{
+    NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
+        if ([[self class] sharedOperationQueue].operationCount) {
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+        } else {
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        }
+    }];
+    [[NSOperationQueue mainQueue] performSelector:@selector(addOperation:)
+                                       withObject:operation
+                                       afterDelay:0.1];
+}
+
 #pragma mark - URL connection delegate
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
@@ -121,6 +136,7 @@ static NSOperationQueue *_sharedOperationQueue;
     id object = [self processData:self.data];
     NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
         self.handler(self.response, object, nil);
+        [self manageStatusBarIndicatorView];
     }];
     [[NSOperationQueue mainQueue] addOperation:operation];
     [self setValue:[NSNumber numberWithBool:NO] forKey:@"isExecuting"];
@@ -132,6 +148,7 @@ static NSOperationQueue *_sharedOperationQueue;
     NSLog(@"error: %@", [error localizedDescription]);
     NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
         self.handler(self.response, self.data, error);
+        [self manageStatusBarIndicatorView];
     }];
     [[NSOperationQueue mainQueue] addOperation:operation];
     [self setValue:[NSNumber numberWithBool:NO] forKey:@"isExecuting"];
