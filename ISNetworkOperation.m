@@ -104,8 +104,10 @@ static NSOperationQueue *_sharedOperationQueue;
     [self manageStatusBarIndicatorView];
     id object = [self processData:self.data];
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.handler(self.response, object, nil);
-        self.handler = nil;
+        if (self.handler) {
+            self.handler(self.response, object, nil);
+            self.handler = nil;
+        }
     });
     CFRunLoopStop(CFRunLoopGetCurrent());
 }
@@ -115,8 +117,10 @@ static NSOperationQueue *_sharedOperationQueue;
     [self manageStatusBarIndicatorView];
     NSLog(@"error: %@", [error localizedDescription]);
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.handler(self.response, self.data, error);
-        self.handler = nil;
+        if (self.handler) {
+            self.handler(self.response, self.data, error);
+            self.handler = nil;
+        }
     });
     CFRunLoopStop(CFRunLoopGetCurrent());
 }
