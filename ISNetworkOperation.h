@@ -10,6 +10,7 @@
 
 + (NSOperationQueue *)sharedOperationQueue;
 + (id)operationWithRequest:(NSURLRequest *)request;
++ (void)sendRequest:(NSURLRequest *)request handler:(void (^)(NSURLResponse *, id, NSError *))handler;
 - (id)processData:(NSData *)data;
 - (void)enqueueWithHandler:(void (^)(NSURLResponse *response, id object, NSError *error))handler;
 

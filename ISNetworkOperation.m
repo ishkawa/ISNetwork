@@ -28,6 +28,11 @@ static NSOperationQueue *_sharedOperationQueue;
     return operation;
 }
 
++ (void)sendRequest:(NSURLRequest *)request handler:(void (^)(NSURLResponse *, id, NSError *))handler
+{
+    [[self operationWithRequest:request] enqueueWithHandler:handler];
+}
+
 - (void)dealloc
 {
     self.handler = nil;
