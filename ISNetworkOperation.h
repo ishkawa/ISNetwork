@@ -1,9 +1,6 @@
 #import <UIKit/UIKit.h>
 
-@interface ISNetworkOperation : NSOperation {
-    BOOL _isExecuting;
-    BOOL _isFinished;
-}
+@interface ISNetworkOperation : NSOperation <NSURLConnectionDataDelegate>
 
 @property (retain, nonatomic) NSURLRequest *request;
 @property (retain, nonatomic) NSURLResponse *response;

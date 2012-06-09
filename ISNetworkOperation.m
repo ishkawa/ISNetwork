@@ -28,16 +28,6 @@ static NSOperationQueue *_sharedOperationQueue;
     return operation;
 }
 
-- (id)init
-{
-    self = [super init];
-    if (self) {
-        _isExecuting = NO;
-        _isFinished = NO;
-    }
-    return self;
-}
-
 - (void)dealloc
 {
     self.handler = nil;
@@ -48,30 +38,6 @@ static NSOperationQueue *_sharedOperationQueue;
     [super dealloc];
 }
 
-#pragma mark - NSOperation statuses
-
-+ (BOOL)automaticallyNotifiesObserversForKey:(NSString*)key {
-    if ([key isEqualToString:@"isExecuting"] || [key isEqualToString:@"isFinished"]) {
-        return YES;
-    }
-    return [super automaticallyNotifiesObserversForKey:key];
-}
-
-- (BOOL)isConcurrent
-{
-    return YES;
-}
-
-- (BOOL)isExecuting
-{
-    return _isExecuting;
-}
-
-- (BOOL)isFinished
-{
-    return _isFinished;
-}
-
 #pragma mark - action
 
 - (void)enqueueWithHandler:(void (^)(NSURLResponse *, id, NSError *))handler
@@ -80,15 +46,13 @@ static NSOperationQueue *_sharedOperationQueue;
     [[[self class] sharedOperationQueue] addOperation:self];
 }
 
-- (void)start
+- (void)main
 {
     [self manageStatusBarIndicatorView];
-    [self setValue:[NSNumber numberWithBool:YES] forKey:@"isExecuting"];
+    self.data = [NSMutableData data];
     self.connection = [NSURLConnection connectionWithRequest:self.request delegate:self];
     [self.connection scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
-    do {
-        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
-    } while ([self isExecuting]);
+    CFRunLoopRun();
 }
 
 - (id)processData:(NSData *)data
@@ -98,31 +62,30 @@ static NSOperationQueue *_sharedOperationQueue;
 
 - (void)cancel
 {
+    [self manageStatusBarIndicatorView];
     [self.connection cancel];
-    [self setValue:[NSNumber numberWithBool:NO] forKey:@"isExecuting"];
-    [self setValue:[NSNumber numberWithBool:YES] forKey:@"isFinished"];
+    CFRunLoopStop(CFRunLoopGetCurrent());
+    
     [super cancel];
 }
 
 - (void)manageStatusBarIndicatorView
 {
-    NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);
+    dispatch_async(queue, ^{
+        [NSThread sleepForTimeInterval:0.1];
         if ([[self class] sharedOperationQueue].operationCount) {
             [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
         } else {
             [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         }
-    }];
-    [[NSOperationQueue mainQueue] performSelector:@selector(addOperation:)
-                                       withObject:operation
-                                       afterDelay:0.1];
+    });
 }
 
 #pragma mark - URL connection delegate
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
-    self.data = [NSMutableData data];
     self.response = response;
 }
 
@@ -133,26 +96,24 @@ static NSOperationQueue *_sharedOperationQueue;
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
+    [self manageStatusBarIndicatorView];
     id object = [self processData:self.data];
-    NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
+    dispatch_async(dispatch_get_main_queue(), ^{
         self.handler(self.response, object, nil);
-        [self manageStatusBarIndicatorView];
-    }];
-    [[NSOperationQueue mainQueue] addOperation:operation];
-    [self setValue:[NSNumber numberWithBool:NO] forKey:@"isExecuting"];
-    [self setValue:[NSNumber numberWithBool:YES] forKey:@"isFinished"];
+        self.handler = nil;
+    });
+    CFRunLoopStop(CFRunLoopGetCurrent());
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
+    [self manageStatusBarIndicatorView];
     NSLog(@"error: %@", [error localizedDescription]);
-    NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
+    dispatch_async(dispatch_get_main_queue(), ^{
         self.handler(self.response, self.data, error);
-        [self manageStatusBarIndicatorView];
-    }];
-    [[NSOperationQueue mainQueue] addOperation:operation];
-    [self setValue:[NSNumber numberWithBool:NO] forKey:@"isExecuting"];
-    [self setValue:[NSNumber numberWithBool:YES] forKey:@"isFinished"];
+        self.handler = nil;
+    });
+    CFRunLoopStop(CFRunLoopGetCurrent());
 }
 
 @end
