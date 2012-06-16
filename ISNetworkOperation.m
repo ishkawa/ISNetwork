@@ -78,7 +78,7 @@ static NSOperationQueue *_sharedOperationQueue;
 {
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);
     dispatch_async(queue, ^{
-        [NSThread sleepForTimeInterval:0.1];
+        [NSThread sleepForTimeInterval:0.5];
         if ([[self class] sharedOperationQueue].operationCount) {
             [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
         } else {
