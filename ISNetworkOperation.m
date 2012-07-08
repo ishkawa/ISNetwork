@@ -76,9 +76,9 @@ static NSOperationQueue *_sharedOperationQueue;
 
 - (void)manageStatusBarIndicatorView
 {
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);
-    dispatch_async(queue, ^{
-        [NSThread sleepForTimeInterval:0.5];
+    double delayInSeconds = 0.1;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         if ([[self class] sharedOperationQueue].operationCount) {
             [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
         } else {
