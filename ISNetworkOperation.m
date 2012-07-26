@@ -1,6 +1,13 @@
 #import "ISNetworkOperation.h"
 
-@implementation ISNetworkOperation
+@interface ISNetworkOperation ()
+
+@property BOOL isExecuting;
+@property BOOL isFinished;
+
+@end
+
+@implementation ISNetworkOperation 
 
 @synthesize request = _request;
 @synthesize response = _response;
@@ -8,16 +15,39 @@
 @synthesize connection = _connection;
 @synthesize handler = _handler;
 
-#pragma mark - life cycle
+@synthesize isExecuting = _isExecuting;
+@synthesize isFinished = _isFinished;
 
-static NSOperationQueue *_sharedOperationQueue;
+#pragma mark - KVO
+
+- (BOOL)isConcurrent
+{
+    return YES;
+}
+
++ (BOOL) automaticallyNotifiesObserversForKey: (NSString*) key
+{
+    return YES;
+}
+
+#pragma mark - life cycle
 
 + (NSOperationQueue *)sharedOperationQueue
 {
-    if (_sharedOperationQueue == nil) {
-        _sharedOperationQueue = [[NSOperationQueue alloc] init];
+    static NSOperationQueue *queue;
+    if (queue == nil) {
+        queue = [[NSOperationQueue alloc] init];
     }
-    return _sharedOperationQueue;
+    return queue;
+}
+
++ (NSOperationQueue *)sharedPostOperationQueue
+{
+    static NSOperationQueue *queue;
+    if (queue == nil) {
+        queue = [[NSOperationQueue alloc] init];
+    }
+    return queue;
 }
 
 + (id)operationWithRequest:(NSURLRequest *)request
@@ -48,16 +78,30 @@ static NSOperationQueue *_sharedOperationQueue;
 - (void)enqueueWithHandler:(void (^)(NSURLResponse *, id, NSError *))handler
 {
     self.handler = handler;
-    [[[self class] sharedOperationQueue] addOperation:self];
+    if ([self.request.HTTPMethod isEqualToString:@"POST"]) {
+        [[[self class] sharedPostOperationQueue] addOperation:self];
+    } else {
+        [[[self class] sharedOperationQueue] addOperation:self];
+    }
 }
 
-- (void)main
+- (void) start
 {
+    if ([self isCancelled]) {
+        self.isExecuting = NO;
+        self.isFinished = YES;
+        return;
+    }
+
+    self.isExecuting = YES;
+    self.isFinished = NO;
+    
     [self manageStatusBarIndicatorView];
     self.data = [NSMutableData data];
-    self.connection = [NSURLConnection connectionWithRequest:self.request delegate:self];
-    [self.connection scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
-    CFRunLoopRun();
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        self.connection = [NSURLConnection connectionWithRequest:self.request delegate:self];
+        [[NSRunLoop currentRunLoop] run];
+    });
 }
 
 - (id)processData:(NSData *)data
@@ -69,14 +113,22 @@ static NSOperationQueue *_sharedOperationQueue;
 {
     [self manageStatusBarIndicatorView];
     [self.connection cancel];
-    CFRunLoopStop(CFRunLoopGetCurrent());
+    [self finish];
     
     [super cancel];
 }
 
+- (void)finish
+{
+    [self manageStatusBarIndicatorView];
+    
+    self.isExecuting = NO;
+    self.isFinished = YES;
+}
+
 - (void)manageStatusBarIndicatorView
 {
-    double delayInSeconds = 0.1;
+    double delayInSeconds = 0.2;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         if ([[self class] sharedOperationQueue].operationCount) {
@@ -101,7 +153,6 @@ static NSOperationQueue *_sharedOperationQueue;
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    [self manageStatusBarIndicatorView];
     id object = [self processData:self.data];
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self.handler) {
@@ -109,12 +160,11 @@ static NSOperationQueue *_sharedOperationQueue;
             self.handler = nil;
         }
     });
-    CFRunLoopStop(CFRunLoopGetCurrent());
+    [self finish];
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-    [self manageStatusBarIndicatorView];
     NSLog(@"error: %@", [error localizedDescription]);
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self.handler) {
@@ -122,7 +172,7 @@ static NSOperationQueue *_sharedOperationQueue;
             self.handler = nil;
         }
     });
-    CFRunLoopStop(CFRunLoopGetCurrent());
+    [self finish];
 }
 
 @end

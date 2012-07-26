@@ -9,9 +9,11 @@
 @property (copy, nonatomic) void (^handler)(NSURLResponse *response, id object, NSError *error);
 
 + (NSOperationQueue *)sharedOperationQueue;
++ (NSOperationQueue *)sharedPostOperationQueue;
 + (id)operationWithRequest:(NSURLRequest *)request;
-+ (void)sendRequest:(NSURLRequest *)request handler:(void (^)(NSURLResponse *response, id object, NSError *error))handler;
 - (id)processData:(NSData *)data;
 - (void)enqueueWithHandler:(void (^)(NSURLResponse *response, id object, NSError *error))handler;
++ (void)sendRequest:(NSURLRequest *)request
+            handler:(void (^)(NSURLResponse *response, id object, NSError *error))handler;
 
 @end
