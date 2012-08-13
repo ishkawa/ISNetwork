@@ -58,7 +58,7 @@
     return operation;
 }
 
-+ (void)sendRequest:(NSURLRequest *)request handler:(void (^)(NSURLResponse *, id, NSError *))handler
++ (void)sendRequest:(NSURLRequest *)request handler:(void (^)(NSHTTPURLResponse *, id, NSError *))handler
 {
     [[self operationWithRequest:request] enqueueWithHandler:handler];
 }
@@ -75,7 +75,7 @@
 
 #pragma mark - action
 
-- (void)enqueueWithHandler:(void (^)(NSURLResponse *, id, NSError *))handler
+- (void)enqueueWithHandler:(void (^)(NSHTTPURLResponse *, id, NSError *))handler
 {
     self.handler = handler;
     if ([self.request.HTTPMethod isEqualToString:@"POST"]) {
@@ -141,7 +141,7 @@
 
 #pragma mark - URL connection delegate
 
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSHTTPURLResponse *)response
 {
     self.response = response;
 }
