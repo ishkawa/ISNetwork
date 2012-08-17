@@ -9,6 +9,7 @@
 
 @implementation ISNetworkOperation 
 
+@synthesize priority = _priority;
 @synthesize request = _request;
 @synthesize response = _response;
 @synthesize data = _data;
@@ -63,6 +64,16 @@
     [[self operationWithRequest:request] enqueueWithHandler:handler];
 }
 
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        self.priority = DISPATCH_QUEUE_PRIORITY_DEFAULT;
+        self.data = [NSMutableData data];
+    }
+    return self;
+}
+
 - (void)dealloc
 {
     self.handler = nil;
@@ -97,8 +108,7 @@
     self.isFinished = NO;
     
     [self manageStatusBarIndicatorView];
-    self.data = [NSMutableData data];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    dispatch_async(dispatch_get_global_queue(self.priority, 0), ^{
         self.connection = [NSURLConnection connectionWithRequest:self.request delegate:self];
         [[NSRunLoop currentRunLoop] run];
     });
