@@ -9,15 +9,15 @@
 
 @implementation ISNetworkOperation 
 
-@synthesize priority = _priority;
-@synthesize request = _request;
-@synthesize response = _response;
-@synthesize data = _data;
+@synthesize priority   = _priority;
+@synthesize request    = _request;
+@synthesize response   = _response;
+@synthesize data       = _data;
 @synthesize connection = _connection;
-@synthesize handler = _handler;
+@synthesize handler    = _handler;
 
 @synthesize isExecuting = _isExecuting;
-@synthesize isFinished = _isFinished;
+@synthesize isFinished  = _isFinished;
 
 #pragma mark - KVO
 
@@ -26,7 +26,7 @@
     return YES;
 }
 
-+ (BOOL) automaticallyNotifiesObserversForKey: (NSString*) key
++ (BOOL)automaticallyNotifiesObserversForKey:(NSString *)key
 {
     return YES;
 }
@@ -76,11 +76,12 @@
 
 - (void)dealloc
 {
-    self.handler = nil;
-    [_request release], _request = nil;
-    [_response release], _response = nil;
-    [_data release], _data = nil;
-    [_connection release], _connection = nil;
+    self.request    = nil;
+    self.response   = nil;
+    self.data       = nil;
+    self.connection = nil;
+    self.handler    = nil;
+
     [super dealloc];
 }
 
