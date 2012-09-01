@@ -17,12 +17,10 @@ If you will not use `git submodule`, please get files from [here](https://github
 
 1. add files in `ISNetwork/` and `NSDictionary-URLQuery/` to your xcode project.
 2. import ISNetwork
-
 ```objectivec
 #import "ISNetwork.h"
 ```
 3. set up NSURLRequest
-
 ```objectivec
 NSURL *URL = [NSURL URLWithString:@"http://www.github.com"];
 NSURLRequest *reqeust = [NSURLRequest requestWithURL:URL];
