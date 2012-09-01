@@ -1,15 +1,15 @@
 ## Files
 
-- ISNetwork/  
+- `ISNetwork/`  
 ISNetwork objects.
 
-- ISNetworkTests/  
+- `ISNetworkTests/`  
 unit test objects.
 
-- DemoApp/  
+- `DemoApp/`  
 objects for sample application.
 
-- (NSDictionary-URLQuery)  
+- `(NSDictionary-URLQuery)`  
 submodule to generate URL query from NSDictionary.  
 If you will not use `git submodule`, please get files from [here](https://github.com/ishkawa/NSDictionary-URLQuery)
 
@@ -21,14 +21,12 @@ If you will not use `git submodule`, please get files from [here](https://github
 ```objectivec
 #import "ISNetwork.h"
 ```
-
 3. set up NSURLRequest
 
 ```objectivec
 NSURL *URL = [NSURL URLWithString:@"http://www.github.com"];
 NSURLRequest *reqeust = [NSURLRequest requestWithURL:URL];
 ```
-
 4. send request
 
 ```objectivec
