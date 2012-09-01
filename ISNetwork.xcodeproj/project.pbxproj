@@ -18,6 +18,14 @@
 		77D579C815F1B4780047748A /* ISNetworkOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D579C415F1B4780047748A /* ISNetworkOperation.m */; };
 		77D579CF15F1B49C0047748A /* NSDictionary+URLQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D579CD15F1B49C0047748A /* NSDictionary+URLQuery.m */; };
 		77D579D215F1B5270047748A /* ISViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D579D115F1B5270047748A /* ISViewController.m */; };
+		77D579DA15F1B6970047748A /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77D579D915F1B6970047748A /* SenTestingKit.framework */; };
+		77D579DB15F1B6970047748A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77D579A015F1B3F70047748A /* UIKit.framework */; };
+		77D579DC15F1B6970047748A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77D579A215F1B3F70047748A /* Foundation.framework */; };
+		77D579E215F1B6970047748A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 77D579E015F1B6970047748A /* InfoPlist.strings */; };
+		77D579E515F1B6970047748A /* ISNetworkOperationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D579E415F1B6970047748A /* ISNetworkOperationTests.m */; };
+		77D579EE15F1B8430047748A /* ISNetworkOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D579C415F1B4780047748A /* ISNetworkOperation.m */; };
+		77D579EF15F1B8430047748A /* ISImageNetworkOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D579BF15F1B4780047748A /* ISImageNetworkOperation.m */; };
+		77D579F015F1B8430047748A /* ISJSONNetworkOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D579C115F1B4780047748A /* ISJSONNetworkOperation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +50,13 @@
 		77D579CD15F1B49C0047748A /* NSDictionary+URLQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+URLQuery.m"; sourceTree = "<group>"; };
 		77D579D015F1B5270047748A /* ISViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISViewController.h; sourceTree = "<group>"; };
 		77D579D115F1B5270047748A /* ISViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISViewController.m; sourceTree = "<group>"; };
+		77D579D815F1B6970047748A /* ISNetworkTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ISNetworkTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		77D579D915F1B6970047748A /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		77D579DF15F1B6970047748A /* ISNetworkTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ISNetworkTests-Info.plist"; sourceTree = "<group>"; };
+		77D579E115F1B6970047748A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		77D579E315F1B6970047748A /* ISNetworkOperationTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISNetworkOperationTests.h; sourceTree = "<group>"; };
+		77D579E415F1B6970047748A /* ISNetworkOperationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ISNetworkOperationTests.m; sourceTree = "<group>"; };
+		77D579E615F1B6970047748A /* ISNetworkTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ISNetworkTests-Prefix.pch"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +70,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		77D579D415F1B6970047748A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				77D579DA15F1B6970047748A /* SenTestingKit.framework in Frameworks */,
+				77D579DB15F1B6970047748A /* UIKit.framework in Frameworks */,
+				77D579DC15F1B6970047748A /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -63,6 +88,7 @@
 			children = (
 				77D579BD15F1B4780047748A /* ISNetwork */,
 				77D579A615F1B3F70047748A /* DemoApp */,
+				77D579DD15F1B6970047748A /* ISNetworkTests */,
 				77D5799F15F1B3F70047748A /* Frameworks */,
 				77D5799D15F1B3F70047748A /* Products */,
 				77D579BB15F1B4660047748A /* Libraries */,
@@ -73,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				77D5799C15F1B3F70047748A /* ISNetwork.app */,
+				77D579D815F1B6970047748A /* ISNetworkTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -83,6 +110,7 @@
 				77D579A015F1B3F70047748A /* UIKit.framework */,
 				77D579A215F1B3F70047748A /* Foundation.framework */,
 				77D579A415F1B3F70047748A /* CoreGraphics.framework */,
+				77D579D915F1B6970047748A /* SenTestingKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -141,6 +169,26 @@
 			path = "NSDictionary-URLQuery";
 			sourceTree = "<group>";
 		};
+		77D579DD15F1B6970047748A /* ISNetworkTests */ = {
+			isa = PBXGroup;
+			children = (
+				77D579E315F1B6970047748A /* ISNetworkOperationTests.h */,
+				77D579E415F1B6970047748A /* ISNetworkOperationTests.m */,
+				77D579DE15F1B6970047748A /* Supporting Files */,
+			);
+			path = ISNetworkTests;
+			sourceTree = "<group>";
+		};
+		77D579DE15F1B6970047748A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				77D579DF15F1B6970047748A /* ISNetworkTests-Info.plist */,
+				77D579E015F1B6970047748A /* InfoPlist.strings */,
+				77D579E615F1B6970047748A /* ISNetworkTests-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -160,6 +208,24 @@
 			productName = DemoApp;
 			productReference = 77D5799C15F1B3F70047748A /* ISNetwork.app */;
 			productType = "com.apple.product-type.application";
+		};
+		77D579D715F1B6970047748A /* ISNetworkTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 77D579E715F1B6970047748A /* Build configuration list for PBXNativeTarget "ISNetworkTests" */;
+			buildPhases = (
+				77D579D315F1B6970047748A /* Sources */,
+				77D579D415F1B6970047748A /* Frameworks */,
+				77D579D515F1B6970047748A /* Resources */,
+				77D579D615F1B6970047748A /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ISNetworkTests;
+			productName = ISNetworkTests;
+			productReference = 77D579D815F1B6970047748A /* ISNetworkTests.octest */;
+			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
 
@@ -183,6 +249,7 @@
 			projectRoot = "";
 			targets = (
 				77D5799B15F1B3F70047748A /* ISNetwork */,
+				77D579D715F1B6970047748A /* ISNetworkTests */,
 			);
 		};
 /* End PBXProject section */
@@ -196,7 +263,31 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		77D579D515F1B6970047748A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				77D579E215F1B6970047748A /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		77D579D615F1B6970047748A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		77D5799815F1B3F70047748A /* Sources */ = {
@@ -213,6 +304,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		77D579D315F1B6970047748A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				77D579E515F1B6970047748A /* ISNetworkOperationTests.m in Sources */,
+				77D579EE15F1B8430047748A /* ISNetworkOperation.m in Sources */,
+				77D579EF15F1B8430047748A /* ISImageNetworkOperation.m in Sources */,
+				77D579F015F1B8430047748A /* ISJSONNetworkOperation.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
@@ -220,6 +322,14 @@
 			isa = PBXVariantGroup;
 			children = (
 				77D579AA15F1B3F70047748A /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		77D579E015F1B6970047748A /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				77D579E115F1B6970047748A /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -296,6 +406,38 @@
 			};
 			name = Release;
 		};
+		77D579E815F1B6970047748A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ISNetworkTests/ISNetworkTests-Prefix.pch";
+				INFOPLIST_FILE = "ISNetworkTests/ISNetworkTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "ISNetwork/**";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		77D579E915F1B6970047748A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ISNetworkTests/ISNetworkTests-Prefix.pch";
+				INFOPLIST_FILE = "ISNetworkTests/ISNetworkTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "ISNetwork/**";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -316,6 +458,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		77D579E715F1B6970047748A /* Build configuration list for PBXNativeTarget "ISNetworkTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				77D579E815F1B6970047748A /* Debug */,
+				77D579E915F1B6970047748A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
