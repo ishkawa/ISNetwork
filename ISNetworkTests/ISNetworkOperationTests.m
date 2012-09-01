@@ -40,7 +40,8 @@
 - (void)testPOSTRequest
 {
     NSURL *URL = [NSURL URLWithString:@"http://posttestserver.com/post.php"];
-    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
+    request.HTTPMethod = @"POST";
     
     [ISNetworkOperation sendRequest:request
                             handler:^(NSHTTPURLResponse *response, id object, NSError *error) {
