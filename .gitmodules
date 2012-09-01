@@ -1,0 +1,3 @@
+[submodule "NSDictionary-URLQuery"]
+	path = NSDictionary-URLQuery
+	url = git@github.com:ishkawa/NSDictionary-URLQuery.git
