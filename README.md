@@ -28,14 +28,18 @@ NSURLRequest *reqeust = [NSURLRequest requestWithURL:URL];
 - send request
 
 ```objectivec
-[ISNetworkOperation sendRequest:request
-                        handler:^(NSHTTPURLResponse *response, id object, NSError *error) {
-                            if (error || response.statusCode != 200) {
-                                // error
-                                return;
-                            }
-                            // completion
-                        }];
+NSURL *URL = [NSURL URLWithString:@"http://www.google.com"];
+NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+
+[ISNetworkClient sendRequest:request
+              operationClass:[ISJSONNetworkOperation class]
+                     handler:^(NSHTTPURLResponse *response, id object, NSError *error) {
+                         if (error || response.statusCode != 200) {
+                             // error
+                             return;
+                         }
+                         // completion
+                     }];
 ```
 
 
