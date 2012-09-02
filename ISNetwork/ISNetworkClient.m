@@ -48,7 +48,7 @@
 {
     static ISNetworkClient *client = nil;
     if (client == nil) {
-        client = [[ISNetworkClient alloc] init];
+        client = [[self alloc] init];
     }
     return client;
 }
