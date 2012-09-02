@@ -10,6 +10,40 @@
 
 @implementation ISNetworkClient
 
+#pragma mark - shortcuts
+
++ (void)cancelAllOperations
+{
+    [[self sharedClient].operationQueue cancelAllOperations];
+}
+
++ (void)sendRequest:(NSURLRequest *)request
+     operationClass:(Class)operationClass
+            handler:(void (^)(NSHTTPURLResponse *, id, NSError *))handler
+{
+    if ([operationClass resolveClassMethod:@selector(operationWithRequest:handler:)]) {
+        NSLog(@"invalid operation class.");
+        return;
+    }
+    ISNetworkClient *client = [ISNetworkClient sharedClient];
+    ISNetworkOperation *operation = [operationClass operationWithRequest:request handler:handler];
+    if (!operation) {
+        NSLog(@"could not construct operation.");
+        return;
+    }
+    
+    [client.operationQueue addOperation:operation];
+}
+
++ (void)sendRequest:(NSURLRequest *)request handler:(void (^)(NSHTTPURLResponse *, id, NSError *))handler
+{
+    [self sendRequest:request
+       operationClass:[ISNetworkOperation class]
+              handler:handler];
+}
+
+#pragma mark - life cycle
+
 + (ISNetworkClient *)sharedClient
 {
     static ISNetworkClient *client = nil;
@@ -17,18 +51,6 @@
         client = [[ISNetworkClient alloc] init];
     }
     return client;
-}
-
-+ (void)sendRequest:(NSURLRequest *)request handler:(void (^)(NSHTTPURLResponse *, id, NSError *))handler
-{
-    ISNetworkClient *client = [ISNetworkClient sharedClient];
-    ISNetworkOperation *operation = [ISNetworkOperation operationWithRequest:request handler:handler];
-    if (!operation) {
-        NSLog(@"could not construct operation.");
-        return;
-    }
-    
-    [client.operationQueue addOperation:operation];
 }
 
 - (id)init
@@ -45,6 +67,15 @@
     }
     return self;
 }
+
+- (void)dealloc
+{
+    self.operationQueue = nil;
+    
+    [super dealloc];
+}
+
+#pragma mark - key value observation
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {

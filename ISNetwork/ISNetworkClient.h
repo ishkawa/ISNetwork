@@ -6,6 +6,11 @@
 @property (readonly, retain, nonatomic) NSOperationQueue *operationQueue;
 
 + (ISNetworkClient *)sharedClient;
+
++ (void)cancelAllOperations;
 + (void)sendRequest:(NSURLRequest *)request handler:(void (^)(NSHTTPURLResponse *response, id object, NSError *error))handler;
++ (void)sendRequest:(NSURLRequest *)request
+     operationClass:(Class)operationClass
+            handler:(void (^)(NSHTTPURLResponse *response, id object, NSError *error))handler;
 
 @end
