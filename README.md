@@ -9,10 +9,6 @@ unit test objects.
 - `DemoApp/`  
 objects for sample application.
 
-- `(NSDictionary-URLQuery)`  
-submodule to generate URL query from NSDictionary.  
-If you will not use `git submodule`, please get files from [here](https://github.com/ishkawa/NSDictionary-URLQuery)
-
 ## Usage
 
 - add files in `ISNetwork/` and `NSDictionary-URLQuery/` to your xcode project.
