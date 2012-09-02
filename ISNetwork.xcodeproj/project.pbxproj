@@ -7,8 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7737A04715F30EC20078CA7B /* ISDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7737A04615F30EC20078CA7B /* ISDetailViewController.m */; };
 		779BF1FB15F1EBB20056CB72 /* ISNetworkClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 779BF1FA15F1EBB20056CB72 /* ISNetworkClient.m */; };
 		779BF1FC15F1EBB20056CB72 /* ISNetworkClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 779BF1FA15F1EBB20056CB72 /* ISNetworkClient.m */; };
+		779BF20515F307E50056CB72 /* white.png in Resources */ = {isa = PBXBuildFile; fileRef = 779BF20315F307E50056CB72 /* white.png */; };
+		779BF20615F307E50056CB72 /* white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 779BF20415F307E50056CB72 /* white@2x.png */; };
 		77D579A115F1B3F70047748A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77D579A015F1B3F70047748A /* UIKit.framework */; };
 		77D579A315F1B3F70047748A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77D579A215F1B3F70047748A /* Foundation.framework */; };
 		77D579A515F1B3F70047748A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77D579A415F1B3F70047748A /* CoreGraphics.framework */; };
@@ -31,8 +34,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7737A04515F30EC20078CA7B /* ISDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISDetailViewController.h; sourceTree = "<group>"; };
+		7737A04615F30EC20078CA7B /* ISDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISDetailViewController.m; sourceTree = "<group>"; };
 		779BF1F915F1EBB20056CB72 /* ISNetworkClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISNetworkClient.h; sourceTree = "<group>"; };
 		779BF1FA15F1EBB20056CB72 /* ISNetworkClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISNetworkClient.m; sourceTree = "<group>"; };
+		779BF20315F307E50056CB72 /* white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = white.png; sourceTree = "<group>"; };
+		779BF20415F307E50056CB72 /* white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "white@2x.png"; sourceTree = "<group>"; };
 		77D5799C15F1B3F70047748A /* ISNetwork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ISNetwork.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		77D579A015F1B3F70047748A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		77D579A215F1B3F70047748A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -87,6 +94,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		779BF20215F307E50056CB72 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				779BF20315F307E50056CB72 /* white.png */,
+				779BF20415F307E50056CB72 /* white@2x.png */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
 		77D5799115F1B3F70047748A = {
 			isa = PBXGroup;
 			children = (
@@ -126,6 +142,9 @@
 				77D579B015F1B3F70047748A /* ISAppDelegate.m */,
 				77D579D015F1B5270047748A /* ISViewController.h */,
 				77D579D115F1B5270047748A /* ISViewController.m */,
+				7737A04515F30EC20078CA7B /* ISDetailViewController.h */,
+				7737A04615F30EC20078CA7B /* ISDetailViewController.m */,
+				779BF20215F307E50056CB72 /* Images */,
 				77D579A715F1B3F70047748A /* Supporting Files */,
 			);
 			path = DemoApp;
@@ -266,6 +285,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				77D579AB15F1B3F70047748A /* InfoPlist.strings in Resources */,
+				779BF20515F307E50056CB72 /* white.png in Resources */,
+				779BF20615F307E50056CB72 /* white@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,6 +329,7 @@
 				77D579CF15F1B49C0047748A /* NSDictionary+URLQuery.m in Sources */,
 				77D579D215F1B5270047748A /* ISViewController.m in Sources */,
 				779BF1FB15F1EBB20056CB72 /* ISNetworkClient.m in Sources */,
+				7737A04715F30EC20078CA7B /* ISDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,6 +420,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DemoApp/ISNetwork-Prefix.pch";
 				INFOPLIST_FILE = "DemoApp/ISNetwork-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = ISNetwork;
 				WRAPPER_EXTENSION = app;
 			};
@@ -409,6 +432,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DemoApp/ISNetwork-Prefix.pch";
 				INFOPLIST_FILE = "DemoApp/ISNetwork-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = ISNetwork;
 				WRAPPER_EXTENSION = app;
 			};

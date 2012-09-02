@@ -1,43 +1,42 @@
-//
-//  ISDetailViewController.m
-//  ISNetwork
-//
-//  Created by Yosuke Ishikawa on 2012/09/02.
-//  Copyright (c) 2012年 Yosuke Ishikawa. All rights reserved.
-//
-
 #import "ISDetailViewController.h"
 
 @interface ISDetailViewController ()
+
+@property (retain, nonatomic) UITextView *textView;
+@property (retain, nonatomic) NSDictionary *tweet;
 
 @end
 
 @implementation ISDetailViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithTweet:(NSDictionary *)tweet
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super init];
     if (self) {
-        // Custom initialization
+        self.tweet = tweet;
     }
     return self;
 }
 
-- (void)viewDidLoad
+- (void)loadView
 {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    [super loadView];
+    
+    self.textView = [[[UITextView alloc] init] autorelease];
+    self.textView.autoresizingMask = (UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight);
+    self.textView.frame = CGRectMake(0, 0,
+                                     self.view.frame.size.width,
+                                     self.view.frame.size.height);
+    
+    [self.view addSubview:self.textView];
 }
 
-- (void)viewDidUnload
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    [super viewWillAppear:animated];
+    
+    self.navigationItem.title = [self.tweet objectForKey:@"from_user"];
+    self.textView.text = [self.tweet objectForKey:@"text"];
 }
 
 @end
