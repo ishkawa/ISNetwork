@@ -9,12 +9,18 @@
 @property (retain, nonatomic) NSURLConnection *connection;
 @property (copy, nonatomic) void (^handler)(NSHTTPURLResponse *response, id object, NSError *error);
 
-+ (NSOperationQueue *)sharedOperationQueue;
-+ (NSOperationQueue *)sharedPostOperationQueue;
 + (id)operationWithRequest:(NSURLRequest *)request;
++ (id)operationWithRequest:(NSURLRequest *)request
+                   handler:(void (^)(NSHTTPURLResponse *response, id object, NSError *error))handler;
+
 - (id)processData:(NSData *)data;
-- (void)enqueueWithHandler:(void (^)(NSHTTPURLResponse *response, id object, NSError *error))handler;
+
+
+#pragma mark - depricated in September 1st (2012)
+
++ (NSOperationQueue *)sharedOperationQueue DEPRECATED_ATTRIBUTE;
+- (void)enqueueWithHandler:(void (^)(NSHTTPURLResponse *response, id object, NSError *error))handler DEPRECATED_ATTRIBUTE;
 + (void)sendRequest:(NSURLRequest *)request
-            handler:(void (^)(NSHTTPURLResponse *response, id object, NSError *error))handler;
+            handler:(void (^)(NSHTTPURLResponse *response, id object, NSError *error))handler DEPRECATED_ATTRIBUTE;
 
 @end
