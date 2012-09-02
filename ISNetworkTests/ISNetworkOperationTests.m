@@ -13,7 +13,7 @@
 - (void)tearDown
 {
     do {
-        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:.1f]];
     } while (!self.isFinished);
     
     [super tearDown];
@@ -31,8 +31,6 @@
                                      handler:^(NSHTTPURLResponse *response, id object, NSError *error) {
                                          if (error || response.statusCode != 200) {
                                              STFail(@"could not complete GET request.");
-                                             self.finished = YES;
-                                             return;
                                          }
                                          self.finished = YES;
                                      }];
@@ -50,8 +48,6 @@
                                      handler:^(NSHTTPURLResponse *response, id object, NSError *error) {
                                          if (error || response.statusCode != 200) {
                                              STFail(@"could not complete GET request.");
-                                             self.finished = YES;
-                                             return;
                                          }
                                          self.finished = YES;
                                      }];

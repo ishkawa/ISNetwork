@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7737A04715F30EC20078CA7B /* ISDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7737A04615F30EC20078CA7B /* ISDetailViewController.m */; };
+		7737A04B15F313480078CA7B /* ISNetworkClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7737A04A15F313480078CA7B /* ISNetworkClientTests.m */; };
 		779BF1FB15F1EBB20056CB72 /* ISNetworkClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 779BF1FA15F1EBB20056CB72 /* ISNetworkClient.m */; };
 		779BF1FC15F1EBB20056CB72 /* ISNetworkClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 779BF1FA15F1EBB20056CB72 /* ISNetworkClient.m */; };
 		779BF20515F307E50056CB72 /* white.png in Resources */ = {isa = PBXBuildFile; fileRef = 779BF20315F307E50056CB72 /* white.png */; };
@@ -36,6 +37,8 @@
 /* Begin PBXFileReference section */
 		7737A04515F30EC20078CA7B /* ISDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISDetailViewController.h; sourceTree = "<group>"; };
 		7737A04615F30EC20078CA7B /* ISDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISDetailViewController.m; sourceTree = "<group>"; };
+		7737A04915F313480078CA7B /* ISNetworkClientTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISNetworkClientTests.h; sourceTree = "<group>"; };
+		7737A04A15F313480078CA7B /* ISNetworkClientTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISNetworkClientTests.m; sourceTree = "<group>"; };
 		779BF1F915F1EBB20056CB72 /* ISNetworkClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISNetworkClient.h; sourceTree = "<group>"; };
 		779BF1FA15F1EBB20056CB72 /* ISNetworkClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISNetworkClient.m; sourceTree = "<group>"; };
 		779BF20315F307E50056CB72 /* white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = white.png; sourceTree = "<group>"; };
@@ -199,6 +202,8 @@
 			children = (
 				77D579E315F1B6970047748A /* ISNetworkOperationTests.h */,
 				77D579E415F1B6970047748A /* ISNetworkOperationTests.m */,
+				7737A04915F313480078CA7B /* ISNetworkClientTests.h */,
+				7737A04A15F313480078CA7B /* ISNetworkClientTests.m */,
 				77D579DE15F1B6970047748A /* Supporting Files */,
 			);
 			path = ISNetworkTests;
@@ -342,6 +347,7 @@
 				77D579EF15F1B8430047748A /* ISImageNetworkOperation.m in Sources */,
 				77D579F015F1B8430047748A /* ISJSONNetworkOperation.m in Sources */,
 				779BF1FC15F1EBB20056CB72 /* ISNetworkClient.m in Sources */,
+				7737A04B15F313480078CA7B /* ISNetworkClientTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
