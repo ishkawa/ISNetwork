@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		779BF1FB15F1EBB20056CB72 /* ISNetworkClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 779BF1FA15F1EBB20056CB72 /* ISNetworkClient.m */; };
+		779BF1FC15F1EBB20056CB72 /* ISNetworkClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 779BF1FA15F1EBB20056CB72 /* ISNetworkClient.m */; };
 		77D579A115F1B3F70047748A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77D579A015F1B3F70047748A /* UIKit.framework */; };
 		77D579A315F1B3F70047748A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77D579A215F1B3F70047748A /* Foundation.framework */; };
 		77D579A515F1B3F70047748A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77D579A415F1B3F70047748A /* CoreGraphics.framework */; };
@@ -29,6 +31,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		779BF1F915F1EBB20056CB72 /* ISNetworkClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISNetworkClient.h; sourceTree = "<group>"; };
+		779BF1FA15F1EBB20056CB72 /* ISNetworkClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISNetworkClient.m; sourceTree = "<group>"; };
 		77D5799C15F1B3F70047748A /* ISNetwork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ISNetwork.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		77D579A015F1B3F70047748A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		77D579A215F1B3F70047748A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -150,6 +154,8 @@
 			isa = PBXGroup;
 			children = (
 				77D579C215F1B4780047748A /* ISNetwork.h */,
+				779BF1F915F1EBB20056CB72 /* ISNetworkClient.h */,
+				779BF1FA15F1EBB20056CB72 /* ISNetworkClient.m */,
 				77D579C315F1B4780047748A /* ISNetworkOperation.h */,
 				77D579C415F1B4780047748A /* ISNetworkOperation.m */,
 				77D579BE15F1B4780047748A /* ISImageNetworkOperation.h */,
@@ -301,6 +307,7 @@
 				77D579C815F1B4780047748A /* ISNetworkOperation.m in Sources */,
 				77D579CF15F1B49C0047748A /* NSDictionary+URLQuery.m in Sources */,
 				77D579D215F1B5270047748A /* ISViewController.m in Sources */,
+				779BF1FB15F1EBB20056CB72 /* ISNetworkClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,6 +319,7 @@
 				77D579EE15F1B8430047748A /* ISNetworkOperation.m in Sources */,
 				77D579EF15F1B8430047748A /* ISImageNetworkOperation.m in Sources */,
 				77D579F015F1B8430047748A /* ISJSONNetworkOperation.m in Sources */,
+				779BF1FC15F1EBB20056CB72 /* ISNetworkClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -466,6 +474,7 @@
 				77D579E915F1B6970047748A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
