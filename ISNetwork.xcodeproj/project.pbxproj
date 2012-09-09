@@ -22,7 +22,6 @@
 		77D579C615F1B4780047748A /* ISImageNetworkOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D579BF15F1B4780047748A /* ISImageNetworkOperation.m */; };
 		77D579C715F1B4780047748A /* ISJSONNetworkOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D579C115F1B4780047748A /* ISJSONNetworkOperation.m */; };
 		77D579C815F1B4780047748A /* ISNetworkOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D579C415F1B4780047748A /* ISNetworkOperation.m */; };
-		77D579CF15F1B49C0047748A /* NSDictionary+URLQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D579CD15F1B49C0047748A /* NSDictionary+URLQuery.m */; };
 		77D579D215F1B5270047748A /* ISViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D579D115F1B5270047748A /* ISViewController.m */; };
 		77D579DA15F1B6970047748A /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77D579D915F1B6970047748A /* SenTestingKit.framework */; };
 		77D579DB15F1B6970047748A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77D579A015F1B3F70047748A /* UIKit.framework */; };
@@ -60,8 +59,6 @@
 		77D579C215F1B4780047748A /* ISNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISNetwork.h; sourceTree = "<group>"; };
 		77D579C315F1B4780047748A /* ISNetworkOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISNetworkOperation.h; sourceTree = "<group>"; };
 		77D579C415F1B4780047748A /* ISNetworkOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISNetworkOperation.m; sourceTree = "<group>"; };
-		77D579CC15F1B49C0047748A /* NSDictionary+URLQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+URLQuery.h"; sourceTree = "<group>"; };
-		77D579CD15F1B49C0047748A /* NSDictionary+URLQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+URLQuery.m"; sourceTree = "<group>"; };
 		77D579D015F1B5270047748A /* ISViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISViewController.h; sourceTree = "<group>"; };
 		77D579D115F1B5270047748A /* ISViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISViewController.m; sourceTree = "<group>"; };
 		77D579D815F1B6970047748A /* ISNetworkTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ISNetworkTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -114,7 +111,6 @@
 				77D579DD15F1B6970047748A /* ISNetworkTests */,
 				77D5799F15F1B3F70047748A /* Frameworks */,
 				77D5799D15F1B3F70047748A /* Products */,
-				77D579BB15F1B4660047748A /* Libraries */,
 			);
 			sourceTree = "<group>";
 		};
@@ -164,14 +160,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		77D579BB15F1B4660047748A /* Libraries */ = {
-			isa = PBXGroup;
-			children = (
-				77D579CA15F1B49C0047748A /* NSDictionary-URLQuery */,
-			);
-			name = Libraries;
-			sourceTree = "<group>";
-		};
 		77D579BD15F1B4780047748A /* ISNetwork */ = {
 			isa = PBXGroup;
 			children = (
@@ -186,15 +174,6 @@
 				77D579C115F1B4780047748A /* ISJSONNetworkOperation.m */,
 			);
 			path = ISNetwork;
-			sourceTree = "<group>";
-		};
-		77D579CA15F1B49C0047748A /* NSDictionary-URLQuery */ = {
-			isa = PBXGroup;
-			children = (
-				77D579CC15F1B49C0047748A /* NSDictionary+URLQuery.h */,
-				77D579CD15F1B49C0047748A /* NSDictionary+URLQuery.m */,
-			);
-			path = "NSDictionary-URLQuery";
 			sourceTree = "<group>";
 		};
 		77D579DD15F1B6970047748A /* ISNetworkTests */ = {
@@ -331,7 +310,6 @@
 				77D579C615F1B4780047748A /* ISImageNetworkOperation.m in Sources */,
 				77D579C715F1B4780047748A /* ISJSONNetworkOperation.m in Sources */,
 				77D579C815F1B4780047748A /* ISNetworkOperation.m in Sources */,
-				77D579CF15F1B49C0047748A /* NSDictionary+URLQuery.m in Sources */,
 				77D579D215F1B5270047748A /* ISViewController.m in Sources */,
 				779BF1FB15F1EBB20056CB72 /* ISNetworkClient.m in Sources */,
 				7737A04715F30EC20078CA7B /* ISDetailViewController.m in Sources */,
@@ -423,6 +401,7 @@
 		77D579B515F1B3F70047748A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DemoApp/ISNetwork-Prefix.pch";
 				INFOPLIST_FILE = "DemoApp/ISNetwork-Info.plist";
@@ -435,6 +414,7 @@
 		77D579B615F1B3F70047748A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DemoApp/ISNetwork-Prefix.pch";
 				INFOPLIST_FILE = "DemoApp/ISNetwork-Info.plist";
