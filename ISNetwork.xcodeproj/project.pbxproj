@@ -435,6 +435,7 @@
 				GCC_PREFIX_HEADER = "ISNetworkTests/ISNetworkTests-Prefix.pch";
 				INFOPLIST_FILE = "ISNetworkTests/ISNetworkTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_AFTER_BUILD = YES;
 				USER_HEADER_SEARCH_PATHS = "ISNetwork/**";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -451,6 +452,7 @@
 				GCC_PREFIX_HEADER = "ISNetworkTests/ISNetworkTests-Prefix.pch";
 				INFOPLIST_FILE = "ISNetworkTests/ISNetworkTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_AFTER_BUILD = YES;
 				USER_HEADER_SEARCH_PATHS = "ISNetwork/**";
 				WRAPPER_EXTENSION = octest;
 			};
