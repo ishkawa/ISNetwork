@@ -1,3 +1,8 @@
+## Requirements
+
+- iOS 5.0 or later.
+- ARC
+
 ## Files
 
 - `ISNetwork/`  
@@ -28,9 +33,6 @@ NSURLRequest *reqeust = [NSURLRequest requestWithURL:URL];
 - send request
 
 ```objectivec
-NSURL *URL = [NSURL URLWithString:@"http://www.google.com"];
-NSURLRequest *request = [NSURLRequest requestWithURL:URL];
-
 [ISNetworkClient sendRequest:request
                      handler:^(NSHTTPURLResponse *response, id object, NSError *error) {
                          if (error || response.statusCode != 200) {
@@ -42,6 +44,6 @@ NSURLRequest *request = [NSURLRequest requestWithURL:URL];
 ```
 
 
-## ARC support
+## non-ARC support
 
-please add `-fno-obj-arc` compile option to files of ISNetwork.
+use [previous version](https://github.com/ishkawa/ISNetwork/commit/c028fa88ca8b5bf0151f3d1e792de79b304b535d).
