@@ -3,7 +3,7 @@
 @interface ISNetworkClient : NSObject
 
 @property BOOL managesActivityIndicator;
-@property (readonly, retain, nonatomic) NSOperationQueue *operationQueue;
+@property (readonly, strong, nonatomic) NSOperationQueue *operationQueue;
 
 + (ISNetworkClient *)sharedClient;
 

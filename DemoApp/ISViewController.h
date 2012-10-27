@@ -2,7 +2,7 @@
 
 @interface ISViewController : UITableViewController
 
-@property (retain, nonatomic) NSArray *tweets;
-@property (retain, nonatomic) NSCache *imageCache;
+@property (strong, nonatomic) NSArray *tweets;
+@property (strong, nonatomic) NSCache *imageCache;
 
 @end

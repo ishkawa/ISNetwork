@@ -2,8 +2,8 @@
 
 @interface ISDetailViewController ()
 
-@property (retain, nonatomic) UITextView *textView;
-@property (retain, nonatomic) NSDictionary *tweet;
+@property (strong, nonatomic) UITextView *textView;
+@property (strong, nonatomic) NSDictionary *tweet;
 
 @end
 
@@ -22,7 +22,7 @@
 {
     [super loadView];
     
-    self.textView = [[[UITextView alloc] init] autorelease];
+    self.textView = [[UITextView alloc] init];
     self.textView.autoresizingMask = (UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight);
     self.textView.frame = CGRectMake(0, 0,
                                      self.view.frame.size.width,

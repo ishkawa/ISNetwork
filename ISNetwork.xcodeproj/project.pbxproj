@@ -31,6 +31,7 @@
 		77D579EE15F1B8430047748A /* ISNetworkOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D579C415F1B4780047748A /* ISNetworkOperation.m */; };
 		77D579EF15F1B8430047748A /* ISImageNetworkOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D579BF15F1B4780047748A /* ISImageNetworkOperation.m */; };
 		77D579F015F1B8430047748A /* ISJSONNetworkOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D579C115F1B4780047748A /* ISJSONNetworkOperation.m */; };
+		7F98B15B163B975A001D432D /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F98B15A163B975A001D432D /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +69,7 @@
 		77D579E315F1B6970047748A /* ISNetworkOperationTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISNetworkOperationTests.h; sourceTree = "<group>"; };
 		77D579E415F1B6970047748A /* ISNetworkOperationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ISNetworkOperationTests.m; sourceTree = "<group>"; };
 		77D579E615F1B6970047748A /* ISNetworkTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ISNetworkTests-Prefix.pch"; sourceTree = "<group>"; };
+		7F98B15A163B975A001D432D /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 		77D5799115F1B3F70047748A = {
 			isa = PBXGroup;
 			children = (
+				7F98B15A163B975A001D432D /* Default-568h@2x.png */,
 				77D579BD15F1B4780047748A /* ISNetwork */,
 				77D579A615F1B3F70047748A /* DemoApp */,
 				77D579DD15F1B6970047748A /* ISNetworkTests */,
@@ -271,6 +274,7 @@
 				77D579AB15F1B3F70047748A /* InfoPlist.strings in Resources */,
 				779BF20515F307E50056CB72 /* white.png in Resources */,
 				779BF20615F307E50056CB72 /* white@2x.png in Resources */,
+				7F98B15B163B975A001D432D /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -401,12 +405,16 @@
 		77D579B515F1B3F70047748A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DemoApp/ISNetwork-Prefix.pch";
 				INFOPLIST_FILE = "DemoApp/ISNetwork-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = ISNetwork;
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -414,12 +422,16 @@
 		77D579B615F1B3F70047748A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DemoApp/ISNetwork-Prefix.pch";
 				INFOPLIST_FILE = "DemoApp/ISNetwork-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = ISNetwork;
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

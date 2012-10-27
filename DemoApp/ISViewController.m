@@ -8,24 +8,17 @@
     self = [super init];
     if (self) {
         self.tweets = @[];
-        self.imageCache = [[[NSCache alloc] init] autorelease];
+        self.imageCache = [[NSCache alloc] init];
         
         self.navigationItem.title = @"ISNetwork";
         self.navigationItem.rightBarButtonItem =
-        [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
+        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
                                                        target:self
-                                                       action:@selector(refresh)] autorelease];
+                                                       action:@selector(refresh)];
     }
     return self;
 }
 
-- (void)dealloc
-{
-    self.tweets = nil;
-    self.imageCache = nil;
-    
-    [super dealloc];
-}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -47,7 +40,7 @@
 {
     [ISNetworkClient cancelAllOperations];
     
-    NSURL *URL = [NSURL URLWithString:@"https://api.twitter.com/1/search.json?q=twitter&rpp=100"];
+    NSURL *URL = [NSURL URLWithString:@"https://search.twitter.com/search.json?q=twitter&rpp=100"];
     NSURLRequest *request = [NSURLRequest requestWithURL:URL];
     
     [ISNetworkClient sendRequest:request
@@ -73,7 +66,7 @@
     static NSString *identifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
     }
     NSDictionary *tweet = [self.tweets objectAtIndex:indexPath.row];
     cell.textLabel.text = [tweet objectForKey:@"from_user"];
@@ -106,7 +99,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary *tweet = [self.tweets objectAtIndex:indexPath.row];
-    ISDetailViewController *viewController = [[[ISDetailViewController alloc] initWithTweet:tweet] autorelease];
+    ISDetailViewController *viewController = [[ISDetailViewController alloc] initWithTweet:tweet];
     
     [self.navigationController pushViewController:viewController animated:YES];
 }

@@ -83,12 +83,19 @@
     ISNetworkOperation *operation =
     [ISNetworkOperation operationWithRequest:request
                                      handler:^(NSHTTPURLResponse *response, id object, NSError *error) {
-                                         if ([error.domain isEqualToString:NSURLErrorDomain] && error.code == -1003) {
+                                         BOOL isExpectedDomain = [error.domain isEqualToString:NSURLErrorDomain];
+                                         BOOL isExpectedCode   = (error.code == -1003 || error.code == -1001);
+                                         if (isExpectedCode && isExpectedDomain) {
                                              // expected error
+                                             // --
                                              // description: "A server with the specified hostname could not be found."
                                              // domain: NSURLErrorDomain
                                              // code: -1003
-                                             
+                                             // --
+                                             // description: "The request timed out."
+                                             // domain: NSURLErrorDomain
+                                             // code: -1001
+                                            
                                              self.finished = YES;
                                              return;
                                          }
