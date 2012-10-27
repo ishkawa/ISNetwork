@@ -10,16 +10,6 @@
 
 @implementation ISNetworkOperation 
 
-@synthesize priority   = _priority;
-@synthesize request    = _request;
-@synthesize response   = _response;
-@synthesize data       = _data;
-@synthesize connection = _connection;
-@synthesize handler    = _handler;
-
-@synthesize isExecuting = _isExecuting;
-@synthesize isFinished  = _isFinished;
-
 #pragma mark - KVO
 
 - (BOOL)isConcurrent
@@ -41,7 +31,7 @@
 
 + (id)operationWithRequest:(NSURLRequest *)request handler:(void (^)(NSHTTPURLResponse *, id, NSError *))handler
 {
-    ISNetworkOperation *operation = [[[[self class] alloc] init] autorelease];
+    ISNetworkOperation *operation = [[[self class] alloc] init];
     operation.request = request;
     operation.handler = handler;
     
@@ -58,16 +48,6 @@
     return self;
 }
 
-- (void)dealloc
-{
-    self.request    = nil;
-    self.response   = nil;
-    self.data       = nil;
-    self.connection = nil;
-    self.handler    = nil;
-
-    [super dealloc];
-}
 
 #pragma mark - action
 

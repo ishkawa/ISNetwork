@@ -3,7 +3,7 @@
 
 @interface ISNetworkClient ()
 
-@property (retain, nonatomic) NSOperationQueue *operationQueue;
+@property (strong, nonatomic) NSOperationQueue *operationQueue;
 
 @end
 
@@ -58,7 +58,7 @@
     self = [super init];
     if (self) {
         self.managesActivityIndicator = YES;
-        self.operationQueue = [[[NSOperationQueue alloc] init] autorelease];
+        self.operationQueue = [[NSOperationQueue alloc] init];
         
         [self.operationQueue addObserver:self
                               forKeyPath:@"operationCount"
@@ -68,12 +68,6 @@
     return self;
 }
 
-- (void)dealloc
-{
-    self.operationQueue = nil;
-    
-    [super dealloc];
-}
 
 #pragma mark - key value observation
 

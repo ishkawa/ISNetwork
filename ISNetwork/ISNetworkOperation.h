@@ -3,10 +3,10 @@
 @interface ISNetworkOperation : NSOperation <NSURLConnectionDataDelegate>
 
 @property dispatch_queue_priority_t priority;
-@property (retain, nonatomic) NSURLRequest *request;
-@property (retain, nonatomic) NSHTTPURLResponse *response;
-@property (retain, nonatomic) NSMutableData *data;
-@property (retain, nonatomic) NSURLConnection *connection;
+@property (strong, nonatomic) NSURLRequest *request;
+@property (strong, nonatomic) NSHTTPURLResponse *response;
+@property (strong, nonatomic) NSMutableData *data;
+@property (strong, nonatomic) NSURLConnection *connection;
 @property (copy, nonatomic) void (^handler)(NSHTTPURLResponse *response, id object, NSError *error);
 
 + (id)operationWithRequest:(NSURLRequest *)request;
