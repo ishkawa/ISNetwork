@@ -5,5 +5,8 @@
 
 typedef enum {
     ISHTTPMethodGET = 0,
-    ISHTTPMethodPOST
+    ISHTTPMethodPOST,
+    ISHTTPMethodPUT,
+    ISHTTPMethodDELETE,
+    ISHTTPMethodPATCH,
 } ISHTTPMethod;
