@@ -86,6 +86,7 @@
         return;
     }
     dispatch_async(dispatch_get_main_queue(), ^{
+        NSLog(@"op: %d", self.operationQueue.operationCount);
         if (self.operationQueue.operationCount) {
             [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
         } else {

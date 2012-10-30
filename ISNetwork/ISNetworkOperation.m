@@ -64,7 +64,15 @@
     
     dispatch_async(dispatch_get_global_queue(self.priority, 0), ^{
         self.connection = [NSURLConnection connectionWithRequest:self.request delegate:self];
-        [[NSRunLoop currentRunLoop] run];
+        
+        while (self.isExecuting) {
+            if (self.isCancelled) {
+                self.isFinished = YES;
+                self.isExecuting = NO;
+                break;
+            }
+            [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:.1f]];
+        }
     });
 }
 
@@ -76,15 +84,14 @@
 - (void)cancel
 {
     [self.connection cancel];
-    [self finish];
+    self.handler = nil;
+    
+    if (self.isExecuting) {
+        self.isFinished = YES;
+    }
+    self.isExecuting = NO;
     
     [super cancel];
-}
-
-- (void)finish
-{
-    self.isExecuting = NO;
-    self.isFinished = YES;
 }
 
 #pragma mark - URL connection delegate
@@ -108,7 +115,9 @@
             self.handler = nil;
         }
     });
-    [self finish];
+    
+    self.isExecuting = NO;
+    self.isFinished = YES;
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
@@ -120,7 +129,9 @@
             self.handler = nil;
         }
     });
-    [self finish];
+    
+    self.isExecuting = NO;
+    self.isFinished = YES;
 }
 
 
