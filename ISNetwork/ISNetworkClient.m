@@ -47,9 +47,11 @@
 + (ISNetworkClient *)sharedClient
 {
     static ISNetworkClient *client = nil;
-    if (client == nil) {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         client = [[self alloc] init];
-    }
+    });
+    
     return client;
 }
 
@@ -86,12 +88,8 @@
         return;
     }
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSLog(@"op: %d", self.operationQueue.operationCount);
-        if (self.operationQueue.operationCount) {
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-        } else {
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        }
+        BOOL remaining = self.operationQueue.operationCount ? YES : NO;
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = remaining;
     });
 }
 

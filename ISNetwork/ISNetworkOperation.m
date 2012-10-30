@@ -42,8 +42,7 @@
 {
     self = [super init];
     if (self) {
-        self.priority = DISPATCH_QUEUE_PRIORITY_DEFAULT;
-        self.data = [NSMutableData data];
+        self.priority = DISPATCH_QUEUE_PRIORITY_BACKGROUND;
     }
     return self;
 }
@@ -55,7 +54,7 @@
 {
     if ([self isCancelled]) {
         self.isExecuting = NO;
-        self.isFinished = YES;
+        self.isFinished  = YES;
         return;
     }
 
@@ -67,7 +66,7 @@
         
         while (self.isExecuting) {
             if (self.isCancelled) {
-                self.isFinished = YES;
+                self.isFinished  = YES;
                 self.isExecuting = NO;
                 break;
             }
@@ -83,14 +82,13 @@
 
 - (void)cancel
 {
-    [self.connection cancel];
     self.handler = nil;
     
-    if (self.isExecuting) {
-        self.isFinished = YES;
-    }
+    // avoid self.isFinished=YES before start
+    self.isFinished  = self.isExecuting ? YES : NO;
     self.isExecuting = NO;
     
+    [self.connection cancel];
     [super cancel];
 }
 
@@ -99,6 +97,7 @@
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSHTTPURLResponse *)response
 {
     self.response = response;
+    self.data = [NSMutableData data];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
@@ -117,7 +116,7 @@
     });
     
     self.isExecuting = NO;
-    self.isFinished = YES;
+    self.isFinished  = YES;
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
@@ -131,7 +130,7 @@
     });
     
     self.isExecuting = NO;
-    self.isFinished = YES;
+    self.isFinished  = YES;
 }
 
 
