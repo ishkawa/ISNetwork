@@ -66,8 +66,12 @@
         
         while (self.isExecuting) {
             if (self.isCancelled) {
+                self.handler = nil;
+                [self.connection cancel];
+                
                 self.isFinished  = YES;
                 self.isExecuting = NO;
+                
                 break;
             }
             [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:.1f]];
