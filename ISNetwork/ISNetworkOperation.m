@@ -12,14 +12,98 @@
 
 #pragma mark - KVO
 
++ (BOOL)automaticallyNotifiesObserversForKey:(NSString *)key
+{
+    if ([key isEqualToString:@"isExecuting"] || [key isEqualToString:@"isFinished"]) {
+        return YES;
+    }
+    return [super automaticallyNotifiesObserversForKey:key];
+}
+
 - (BOOL)isConcurrent
 {
     return YES;
 }
 
-+ (BOOL)automaticallyNotifiesObserversForKey:(NSString *)key
+#pragma mark -
+
+- (void)start
 {
-    return YES;
+    if (self.isCancelled) {
+        self.isExecuting = NO;
+        self.isFinished = YES;
+        return;
+    }
+    
+    self.isExecuting = YES;
+    self.connection = [[NSURLConnection alloc] initWithRequest:self.request
+                                                      delegate:self
+                                              startImmediately:NO];
+    
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_async(queue, ^{
+        [self.connection start];
+        
+        do {
+            if (self.isCancelled) {
+                self.isExecuting = NO;
+                self.isFinished = YES;
+                break;
+            }
+            [[NSRunLoop currentRunLoop] run];
+        } while (self.isExecuting);
+    });
+}
+
+- (void)cancel
+{
+    [self.connection cancel];
+    [super cancel];
+}
+
+#pragma mark - override in subclasses
+
+- (id)processData:(NSData *)data
+{
+    return data;
+}
+
+#pragma mark - NSURLConnectionDataDelegate
+
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
+{
+    self.response = (NSHTTPURLResponse *)response;
+    self.data = [NSMutableData data];
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+{
+    [self.data appendData:data];
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+{
+    id object = [self processData:self.data];
+    if (self.handler) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.handler(self.response, object, nil);
+        });
+    }
+    
+    self.isExecuting = NO;
+    self.isFinished = YES;
+}
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+{
+    if (self.handler) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.handler(self.response, nil, error);
+        });
+    }
+    
+    self.isExecuting = NO;
+    self.isFinished = YES;
 }
 
 #pragma mark - life cycle
@@ -37,106 +121,6 @@
     
     return operation;
 }
-
-- (id)init
-{
-    self = [super init];
-    if (self) {
-        self.priority = DISPATCH_QUEUE_PRIORITY_BACKGROUND;
-    }
-    return self;
-}
-
-
-#pragma mark - action
-
-- (void) start
-{
-    if ([self isCancelled]) {
-        self.isExecuting = NO;
-        self.isFinished  = YES;
-        return;
-    }
-
-    self.isExecuting = YES;
-    self.isFinished = NO;
-    
-    dispatch_async(dispatch_get_global_queue(self.priority, 0), ^{
-        self.connection = [NSURLConnection connectionWithRequest:self.request delegate:self];
-        
-        while (self.isExecuting) {
-            if (self.isCancelled) {
-                self.handler = nil;
-                [self.connection cancel];
-                
-                self.isFinished  = YES;
-                self.isExecuting = NO;
-                
-                break;
-            }
-            [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:.1f]];
-        }
-    });
-}
-
-- (id)processData:(NSData *)data
-{
-    return data;
-}
-
-- (void)cancel
-{
-    self.handler = nil;
-    
-    // avoid self.isFinished=YES before start
-    self.isFinished  = self.isExecuting ? YES : NO;
-    self.isExecuting = NO;
-    
-    [self.connection cancel];
-    [super cancel];
-}
-
-#pragma mark - URL connection delegate
-
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSHTTPURLResponse *)response
-{
-    self.response = response;
-    self.data = [NSMutableData data];
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-{
-    [self.data appendData:data];
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
-{
-    id object = [self processData:self.data];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (self.handler) {
-            self.handler(self.response, object, nil);
-            self.handler = nil;
-        }
-    });
-    
-    self.isExecuting = NO;
-    self.isFinished  = YES;
-}
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-{
-    NSLog(@"error: %@", [error localizedDescription]);
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (self.handler) {
-            self.handler(self.response, self.data, error);
-            self.handler = nil;
-        }
-    });
-    
-    self.isExecuting = NO;
-    self.isFinished  = YES;
-}
-
 
 #pragma mark - depricated
 

@@ -2,7 +2,6 @@
 
 @interface ISNetworkOperation : NSOperation <NSURLConnectionDataDelegate>
 
-@property dispatch_queue_priority_t priority;
 @property (strong, nonatomic) NSURLRequest *request;
 @property (strong, nonatomic) NSHTTPURLResponse *response;
 @property (strong, nonatomic) NSMutableData *data;

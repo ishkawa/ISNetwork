@@ -23,6 +23,7 @@
 
 - (void)testGETRequest
 {
+    self.finished = YES;
     NSURL *URL = [NSURL URLWithString:@"http://www.google.com"];
     NSURLRequest *request = [NSURLRequest requestWithURL:URL];
  
@@ -31,6 +32,7 @@
                                      handler:^(NSHTTPURLResponse *response, id object, NSError *error) {
                                          if (error || response.statusCode != 200) {
                                              STFail(@"could not complete GET request.");
+                                             self.finished = YES;
                                          }
                                          self.finished = YES;
                                      }];
@@ -54,7 +56,7 @@
     [operation start];
 }
 
-- (void)testHandlerRunsOnMainThread
+- (void)testCompletionHandlerRunsOnMainThread
 {
     NSURL *URL = [NSURL URLWithString:@"http://www.google.com"];
     NSURLRequest *request = [NSURLRequest requestWithURL:URL];
@@ -62,14 +64,60 @@
     ISNetworkOperation *operation =
     [ISNetworkOperation operationWithRequest:request
                                      handler:^(NSHTTPURLResponse *response, id object, NSError *error) {
-                                         if (![[NSThread currentThread] isMainThread]) {
-                                             STFail(@"completion handler did not run on main thread.");
-                                         }
+                                         STAssertTrue([NSThread isMainThread], nil);
                                          self.finished = YES;
                                      }];
     [operation start];
 }
 
+- (void)testFailureHandlerRunsOnMainThread
+{
+    NSURL *URL = [NSURL URLWithString:@"http://www.gdsfasdfjjjlsad.co"];
+    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+    
+    ISNetworkOperation *operation =
+    [ISNetworkOperation operationWithRequest:request
+                                     handler:^(NSHTTPURLResponse *response, id object, NSError *error) {
+                                         STAssertTrue([NSThread isMainThread], nil);
+                                         self.finished = YES;
+                                     }];
+    [operation start];
+}
+
+- (void)testDeallocOnCancelBeforeStart
+{
+    __weak id woperation = nil;
+    @autoreleasepool {
+        NSURL *URL = [NSURL URLWithString:@"http://www.google.com"];
+        NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+        
+        ISNetworkOperation *operation = [ISNetworkOperation operationWithRequest:request handler:nil];
+        woperation = operation;
+        [operation cancel];
+        [NSThread sleepForTimeInterval:.1];
+    }
+    
+    STAssertNil(woperation, nil);
+    self.finished = YES;
+}
+
+- (void)testDeallocOnCancelAfterStart
+{
+    __weak id woperation = nil;
+    @autoreleasepool {
+        NSURL *URL = [NSURL URLWithString:@"http://www.google.com"];
+        NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+        
+        ISNetworkOperation *operation = [ISNetworkOperation operationWithRequest:request handler:nil];
+        woperation = operation;
+        [operation start];
+        [operation cancel];
+        [NSThread sleepForTimeInterval:.1];
+    }
+    
+    STAssertNil(woperation, nil);
+    self.finished = YES;
+}
 #pragma mark - error handling
 
 - (void)testInvalidHosts
