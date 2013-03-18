@@ -1,12 +1,12 @@
 Pod::Spec.new do |s|
   s.name         = "ISNetwork"
-  s.version      = "0.0.2"
-  s.summary      = "minimal NSURLConnection wrapper (NSOperation-base)."
-  s.homepage     = "http://EXAMPLE/MyPod"
-  s.author       = { "Yosuke Ishikawa" => "ishkawa73@gmail.com" }
-  s.source       = { :git => "https://github.com/ishkawa/ISNetwork.git", :tag => "0.0.2" }
+  s.version      = "0.0.3"
+  s.summary      = "minimal NSURLConnection wrapper (NSOperation-based)."
+  s.homepage     = "https://github.com/ishkawa/ISNetwork"
+  s.author       = { "Yosuke Ishikawa" => "y@ishkawa.org" }
+  s.source       = { :git => "https://github.com/ishkawa/ISNetwork.git", :tag => "0.0.3" }
   s.platform     = :ios, '5.0'
-  s.source_files = 'Classes', 'ISNetwork/**/*.{h,m}'
+  s.source_files = 'ISNetwork/**/*.{h,m}'
   s.license      = {
     :type => 'MIT',
     :text => <<-LICENSE
